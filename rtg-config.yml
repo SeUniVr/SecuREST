@@ -1,0 +1,2 @@
+apiUnderTest: Tradematic
+strategyClassName: UncheckedTokenAuthenticityTestingStrategy
