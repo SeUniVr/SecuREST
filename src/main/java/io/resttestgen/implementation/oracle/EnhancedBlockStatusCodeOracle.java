@@ -19,12 +19,12 @@ import java.util.Set;
  */
 public class EnhancedBlockStatusCodeOracle extends BlockStatusCodeOracle {
 
-    private static final double LEVENSHTEIN_THRESHOLD = 5.0;
-    private static final double JACCARD_THRESHOLD = 0.2; // Adjust threshold for Jaccard distance
+    private static final double LEVENSHTEIN_THRESHOLD = 0.2;
+    private static final double JACCARD_THRESHOLD = 0.5; // Adjust threshold for Jaccard distance
 
     @Override
     public TestResult assertTestSequence(TestSequence testSequence) {
-        TestResult testResult = super.assertTestSequence(testSequence); // Check for 429 status code first
+        TestResult testResult = new TestResult();
 
         if (!testSequence.isExecuted()) {
             return testResult.setError("One or more interactions in the sequence have not been executed.");
@@ -45,9 +45,9 @@ public class EnhancedBlockStatusCodeOracle extends BlockStatusCodeOracle {
             errorMessages.addAll(getErrorMessagesFromInteraction(testInteraction));
         }
 
-        // Check if the error messages remained the same throughout the sequence
-        if (errorMessages.stream().distinct().count() == 1) {
-            testResult.setFail("The server's error message did not change over time.");
+        // Check if error messages show sufficient variation (either Levenshtein or Jaccard should pass)
+        if (!checkErrorMessageSimilarity(errorMessages)) {
+            testResult.setFail("The server's error message did not change sufficiently over time.");
         }
 
         if (testResult.isPending()) {
@@ -69,7 +69,7 @@ public class EnhancedBlockStatusCodeOracle extends BlockStatusCodeOracle {
         List<String> errorMessages = new ArrayList<>();
 
         // Retrieve the response body and extract error messages recursively
-        StructuredParameter responseBody = (StructuredParameter) testInteraction.getFuzzedOperation().getResponseBody();
+        StructuredParameter responseBody = testInteraction.getFuzzedOperation().getResponseBody();
         if (responseBody != null) {
             // Recursively collect leaf values from the structured parameter
             errorMessages.addAll(extractLeafValues(responseBody));
