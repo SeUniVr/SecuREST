@@ -4,6 +4,7 @@ import io.resttestgen.core.datatype.HttpStatusCode;
 import io.resttestgen.core.datatype.parameter.Parameter;
 import io.resttestgen.core.datatype.parameter.leaves.LeafParameter;
 import io.resttestgen.core.datatype.parameter.structured.StructuredParameter;
+import io.resttestgen.core.testing.Oracle;
 import io.resttestgen.core.testing.TestInteraction;
 import io.resttestgen.core.testing.TestResult;
 import io.resttestgen.core.testing.TestSequence;
@@ -24,23 +25,18 @@ public class EnhancedBlockStatusCodeOracle extends BlockStatusCodeOracle {
 
     @Override
     public TestResult assertTestSequence(TestSequence testSequence) {
-        TestResult testResult = new TestResult();
+        // Call the original BlockStatusCodeOracle method
+        TestResult testResult = super.assertTestSequence(testSequence);
 
-        if (!testSequence.isExecuted()) {
-            return testResult.setError("One or more interactions in the sequence have not been executed.");
+        // If the result is already passed (due to 429), return it directly
+        if (testResult.isPass()) {
+            return testResult;
         }
 
+        // New functionality: check error message variability
         List<String> errorMessages = new ArrayList<>();
 
         for (TestInteraction testInteraction : testSequence) {
-            HttpStatusCode responseStatusCode = testInteraction.getResponseStatusCode();
-
-            // Check for 429 status code
-            if (responseStatusCode.equals(new HttpStatusCode(429))) {
-                testResult.setPass("The server successfully blocked " + testSequence.size() + " wrong login attempts.");
-                break;
-            }
-
             // Retrieve error messages from the test interaction using the new method
             errorMessages.addAll(getErrorMessagesFromInteraction(testInteraction));
         }
