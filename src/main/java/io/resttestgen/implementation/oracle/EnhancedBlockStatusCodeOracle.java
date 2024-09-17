@@ -1,10 +1,8 @@
 package io.resttestgen.implementation.oracle;
 
-import io.resttestgen.core.datatype.HttpStatusCode;
 import io.resttestgen.core.datatype.parameter.Parameter;
 import io.resttestgen.core.datatype.parameter.leaves.LeafParameter;
 import io.resttestgen.core.datatype.parameter.structured.StructuredParameter;
-import io.resttestgen.core.testing.Oracle;
 import io.resttestgen.core.testing.TestInteraction;
 import io.resttestgen.core.testing.TestResult;
 import io.resttestgen.core.testing.TestSequence;
