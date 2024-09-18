@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * Enhanced Oracle that checks for 429 status code and error message variability over time.
  */
-public class EnhancedBlockStatusCodeOracle extends BlockStatusCodeOracle {
+public class ErrorMessageAndBlockStatusCodeOrale extends BlockStatusCodeOracle {
 
     private static final double LEVENSHTEIN_THRESHOLD = 0.2;
     private static final double JACCARD_THRESHOLD = 0.5; // Adjust threshold for Jaccard distance
