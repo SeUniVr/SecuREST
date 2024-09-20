@@ -1,0 +1,4 @@
+name: api-login
+specificationFileName: api-login.json
+authenticationCommands:
+  default: "python apis/apis-login/scripts/auth.py"
