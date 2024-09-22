@@ -1,2 +1,2 @@
-apiUnderTest: Tradematic
-strategyClassName: UncheckedTokenAuthenticityTestingStrategy
+apiUnderTest: apis-login
+strategyClassName: ErrorMessageChangeDetectionStrategy
