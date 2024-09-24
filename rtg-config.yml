@@ -1,2 +1,2 @@
-apiUnderTest: apis-login
-strategyClassName: ErrorMessageChangeDetectionStrategy
+apiUnderTest: brainbi
+strategyClassName: StatusCodeAndErrorPatternTestingStrategy
