@@ -50,7 +50,7 @@ public class ErrorMessageChangeDetectionStrategy extends Strategy {
 
                 LeafParameter secretTokenParam = findSecretTokenParameter((List<LeafParameter>) sequence.get(0).getFuzzedOperation().getLeaves());
                 if (secretTokenParam != null) {
-                    secretTokenParam.setValue("secretrandomtoken");
+                    secretTokenParam.setValue("secret random token");
                 }
                 attemptsSequence.append(sequence);
             }
