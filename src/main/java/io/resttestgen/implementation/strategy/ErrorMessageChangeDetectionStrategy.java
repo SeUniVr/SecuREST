@@ -28,7 +28,7 @@ import static io.resttestgen.implementation.strategy.CredentialStuffingSecurityT
 public class ErrorMessageChangeDetectionStrategy extends Strategy {
 
     private static final Logger logger = LogManager.getLogger(ErrorMessageChangeDetectionStrategy.class);
-    private static final int MAX_LOGIN_ATTEMPTS = 10;
+    private static final int MAX_LOGIN_ATTEMPTS = 100;
 
     @Override
     public void start() {
