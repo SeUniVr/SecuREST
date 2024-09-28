@@ -28,7 +28,7 @@ public class ErrorMessageConsistencyTestingStrategy extends Strategy {
 
     private static final Logger logger = LogManager.getLogger(ErrorMessageConsistencyTestingStrategy.class);
 
-    private static final int MAX_LOGIN_ATTEMPTS = 5;
+    private static final int MAX_LOGIN_ATTEMPTS = 100;
 
     public void start() {
 

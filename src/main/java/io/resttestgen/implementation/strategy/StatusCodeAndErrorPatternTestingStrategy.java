@@ -30,7 +30,7 @@ public class StatusCodeAndErrorPatternTestingStrategy extends Strategy {
 
     private static final Logger logger = LogManager.getLogger(StatusCodeAndErrorPatternTestingStrategy.class);
     private static final String STATIC_USERNAME = "danishrandomemail@gmail.com";
-    private static final int MAX_LOGIN_ATTEMPTS = 10;
+    private static final int MAX_LOGIN_ATTEMPTS = 100;
 
     public void start() {
         TestRunner runner = TestRunner.getInstance();
