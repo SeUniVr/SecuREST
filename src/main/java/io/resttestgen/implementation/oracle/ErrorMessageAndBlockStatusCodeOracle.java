@@ -110,7 +110,7 @@ public class ErrorMessageAndBlockStatusCodeOracle extends BlockStatusCodeOracle 
             double levenshteinSimilarity = calculateLevenshteinSimilarity(msg1, msg2);
             double jaccardSimilarity = calculateJaccardSimilarity(msg1, msg2);
 
-            // If both similarity measures are below their respective thresholds, return false
+            // If both similarity measures indicate sufficient similarity, return false
             if (levenshteinSimilarity > LEVENSHTEIN_THRESHOLD && jaccardSimilarity > JACCARD_THRESHOLD) {
                 return false;
             }
@@ -120,7 +120,8 @@ public class ErrorMessageAndBlockStatusCodeOracle extends BlockStatusCodeOracle 
 
     /**
      * Calculates the Levenshtein distance between two strings and normalizes the result.
-     *
+     * The closer the value is to 1, the more similar they are,
+     * which is suitable for measuring the edit distance of characters.
      * @param msg1 First string.
      * @param msg2 Second string.
      * @return The normalized Levenshtein similarity score (0 to 1).
@@ -129,12 +130,13 @@ public class ErrorMessageAndBlockStatusCodeOracle extends BlockStatusCodeOracle 
         LevenshteinDistance levenshtein = new LevenshteinDistance();
         int distance = levenshtein.apply(msg1, msg2);
         int maxLength = Math.max(msg1.length(), msg2.length());
-        return (double) distance / maxLength;  // Normalize to a similarity score between 0 and 1
+        return 1.0 - (double) distance / maxLength;  // Normalize to a similarity score between 0 and 1
     }
 
     /**
      * Calculates the Jaccard similarity between two strings based on their word sets.
-     *
+     * The closer the value is to 1, the more similar it is,
+     * which is suitable for measuring the similarity between sets.
      * @param msg1 First string.
      * @param msg2 Second string.
      * @return The Jaccard similarity score (0 to 1).
