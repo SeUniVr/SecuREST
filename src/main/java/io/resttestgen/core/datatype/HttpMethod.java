@@ -1,5 +1,6 @@
 package io.resttestgen.core.datatype;
 
+
 public enum HttpMethod {
     GET,
     POST,
